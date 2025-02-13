@@ -1,1 +1,2 @@
 composer create-project laravel/laravel
+php artisan install:api
