@@ -38,7 +38,7 @@ class LoginController extends Controller
             ->where('login_code', $request->login_code)
             ->first();
 
-        // if the code provided the same one saved?
+        // if the user is found, clear the login code and return a token
         if ($user) {
             $user->update([
                 'login_code' => null
