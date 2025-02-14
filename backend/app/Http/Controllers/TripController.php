@@ -22,4 +22,20 @@ class TripController extends Controller
 
         return $trip;
     }
+
+    public function show(Request $request, Trip $trip)
+    {
+        // is the trip is associated with the authenticated user?
+        if ($trip->user->id === $request->user()->id) {
+            return $trip;
+        }
+
+        if ($trip->driver && $request->user()->driver) {
+            if ($trip->driver->id === $request->user()->driver->id) {
+                return $trip;
+            }
+        }
+
+        return response()->json(['message' => 'Cannot find this trip.'], 404);
+    }
 }
