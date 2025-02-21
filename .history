@@ -1,2 +1,4 @@
 composer create-project laravel/laravel
 php artisan install:api
+
+php artisan reverb:start --host="0.0.0.0" --port=8080 --hostname="laravel.test"
