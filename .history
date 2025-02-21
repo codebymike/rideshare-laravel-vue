@@ -4,3 +4,6 @@ php artisan install:api
 php artisan reverb:start --host="0.0.0.0" --port=8080 --hostname="laravel.test"
 
 npm init vue@latest
+
+npm i --D tailwindcss@latest postcss@latest autoprefixer@latest
+npx tailwindcss-cli@latest init -p
