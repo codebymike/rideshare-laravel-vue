@@ -1,11 +1,14 @@
 <script setup>
     import { vMaska } from "maska/vue"
+
+    const handleLogin = () => {
+    }
 </script>
 
 <template>
     <div class="pt-16">
         <h1 class="text-3xl font-semibold mb-4">Enter your phone number</h1>
-        <form action="#">
+        <form action="#" @submit.prevent="handleLogin">
             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left">
                 <div class="bg-white px-4 py-5 sm:p-6">
                     <div>
