@@ -1,12 +1,22 @@
 <script setup>
     import { vMaska } from "maska/vue"
     import { reactive } from 'vue'
+    import axios from 'axios'
 
     const credentials = reactive({
         phone: null,
     })
 
     const handleLogin = () => {
+        axios.post('http://localhost/api/login', getFormattedCredentials())
+        .then((response) => {
+            console.log(response.data)
+            waitingOnVerification.value = true
+        })
+        .catch((error) => {
+            console.error(error)
+            alert(error.response.data.message)
+        })
     }
 </script>
 
