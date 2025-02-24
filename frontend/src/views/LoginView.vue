@@ -1,6 +1,6 @@
 <script setup>
     import { vMaska } from "maska/vue"
-    import { ref, reactive } from 'vue'
+    import { ref, reactive, onMounted } from 'vue'
     import axios from 'axios'
     import { useRouter } from "vue-router"
 
@@ -11,6 +11,14 @@
     const credentials = reactive({
         phone: null,
         login_code: null
+    })
+
+    onMounted(() => {
+        if (localStorage.getItem('token')) {
+            router.push({
+                name: 'landing'
+            })
+        }
     })
 
     const getFormattedCredentials = () => {
