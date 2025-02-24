@@ -2,6 +2,9 @@
     import { vMaska } from "maska/vue"
     import { ref, reactive } from 'vue'
     import axios from 'axios'
+    import { useRouter } from "vue-router"
+
+    const router = useRouter()
 
     const waitingOnVerification = ref(false)
 
@@ -27,6 +30,21 @@
             console.error(error)
             alert(error.response.data.message)
         })
+    }
+
+    const handleVerification = () => {
+        axios.post('http://localhost/api/login/verify', getFormattedCredentials())
+            .then((response) => {
+                console.log(response.data) // auth token
+                localStorage.setItem('token', response.data)
+                router.push({
+                    name: 'landing'
+                })
+            })
+            .catch((error) => {
+                console.error(error)
+                alert(error.response.data.message)
+            })
     }
 </script>
 
