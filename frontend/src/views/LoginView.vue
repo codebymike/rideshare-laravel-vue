@@ -7,11 +7,16 @@
         phone: null,
     })
 
+    const getFormattedCredentials = () => {
+        return {
+            phone: credentials.phone.replace(/\D/g,'')
+        }
+    }
+
     const handleLogin = () => {
         axios.post('http://localhost/api/login', getFormattedCredentials())
         .then((response) => {
             console.log(response.data)
-            waitingOnVerification.value = true
         })
         .catch((error) => {
             console.error(error)
