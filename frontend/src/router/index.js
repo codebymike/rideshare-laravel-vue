@@ -18,4 +18,34 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach((to, from) => {
+  if (to.name === "login") {
+    return true;
+  }
+
+  if (!localStorage.getItem("token")) {
+    return {
+      name: "login",
+    };
+  }
+
+  checkTokenAuthenticity();
+});
+
+const checkTokenAuthenticity = () => {
+  axios
+    .get("http://localhost/api/user", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {})
+    .catch((error) => {
+      localStorage.removeItem("token");
+      router.push({
+        name: "login",
+      });
+    });
+};
+
 export default router;
