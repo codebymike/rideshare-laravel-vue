@@ -18,19 +18,19 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from) => {
-  if (to.name === "login") {
-    return true;
-  }
+// router.beforeEach((to, from) => {
+//   if (to.name === "login") {
+//     return true;
+//   }
 
-  if (!localStorage.getItem("token")) {
-    return {
-      name: "login",
-    };
-  }
+//   if (!localStorage.getItem("token")) {
+//     return {
+//       name: "login",
+//     };
+//   }
 
-  checkTokenAuthenticity();
-});
+//   checkTokenAuthenticity();
+// });
 
 const checkTokenAuthenticity = () => {
   axios
