@@ -1,8 +1,9 @@
 <script setup>
 import { useLocationStore } from '@/stores/location'
-
+import { useRouter } from 'vue-router'
 
 const location = useLocationStore()
+const router = useRouter()
 
 const handleLocationChanged = (e) => {
     // console.log('handleLocationChanged', e)
