@@ -1,5 +1,10 @@
 <script setup>
 
+
+const handleLocationChanged = (e) => {
+    console.log('handleLocationChanged', e)
+}
+
 </script>
 <template>
     <div class="pt-16">
