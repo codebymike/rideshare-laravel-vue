@@ -18,6 +18,14 @@ const handleLocationChanged = (e) => {
     })
 }
 
+const handleSelectLocation = () => {
+    if (location.destination.name !== '') {
+        router.push({
+            name: 'map'
+        })
+    }
+}
+
 </script>
 <template>
     <div class="pt-16">
