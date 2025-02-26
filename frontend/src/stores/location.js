@@ -1,6 +1,15 @@
-import { ref, computed } from "vue";
+import { ref, computed, reactive } from "vue";
 import { defineStore } from "pinia";
 
 export const useLocationStore = defineStore("location", () => {
-  return {};
+  const destination = reactive({
+    name: "",
+    address: "",
+    geometry: {
+      lat: null,
+      lng: null,
+    },
+  });
+
+  return { destination };
 });
