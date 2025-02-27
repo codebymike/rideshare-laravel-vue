@@ -1,5 +1,6 @@
 <script setup>
 import { useLocationStore } from '@/stores/location'
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
 
 const location = useLocationStore()
@@ -20,7 +21,7 @@ onMounted(async () => {
 
     // draw a path on the map
     gMap.value.$mapPromise.then((mapObject) => {
-        
+
         let currentPoint = new google.maps.LatLng(location.current.geometry),
             destinationPoint = new google.maps.LatLng(location.destination.geometry),
             directionsService = new google.maps.DirectionsService,
