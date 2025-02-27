@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router'
 const location = useLocationStore()
 const router = useRouter()
 
+const gMap = ref(null)
+
 onMounted(async () => {
 
     if (location.destination.name === '') {
@@ -15,6 +17,31 @@ onMounted(async () => {
 
     // get users location
     await location.updateCurrentLocation()
+
+    // draw a path on the map
+    gMap.value.$mapPromise.then((mapObject) => {
+        
+        let currentPoint = new google.maps.LatLng(location.current.geometry),
+            destinationPoint = new google.maps.LatLng(location.destination.geometry),
+            directionsService = new google.maps.DirectionsService,
+            directionsDisplay = new google.maps.DirectionsRenderer({
+                map: mapObject
+            })
+
+        directionsService.route({
+            origin: currentPoint,
+            destination: destinationPoint,
+            avoidTolls: false,
+            avoidHighways: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, (res, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(res)
+            } else {
+                console.error(status)
+            }
+        })
+    })
 })
 
 </script>
