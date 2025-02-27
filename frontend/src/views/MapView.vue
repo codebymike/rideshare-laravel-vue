@@ -5,6 +5,18 @@ import { useRouter } from 'vue-router'
 const location = useLocationStore()
 const router = useRouter()
 
+onMounted(async () => {
+
+    if (location.destination.name === '') {
+        router.push({
+            name: 'location'
+        })
+    }
+
+    // get users location
+    await location.updateCurrentLocation()
+})
+
 </script>
 <template>
     <div class="pt-16">
