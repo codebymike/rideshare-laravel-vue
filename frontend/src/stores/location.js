@@ -17,6 +17,13 @@ export const useLocationStore = defineStore("location", () => {
     },
   });
 
+  const current = reactive({
+    geometry: {
+      lat: null,
+      lng: null,
+    },
+  });
+
   const updateCurrentLocation = async () => {
     const userLocation = await getUserLocation();
     current.geometry = {
@@ -25,5 +32,5 @@ export const useLocationStore = defineStore("location", () => {
     };
   };
 
-  return { destination, updateCurrentLocation };
+  return { destination, current, updateCurrentLocation };
 });
