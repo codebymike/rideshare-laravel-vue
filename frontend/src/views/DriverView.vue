@@ -7,7 +7,7 @@ const router = useRouter()
 
 const driverDetails = reactive({
     name: '',
-    year: '',
+    year: null,
     make: '',
     model: '',
     color: '',
