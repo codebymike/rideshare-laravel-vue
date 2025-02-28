@@ -2,7 +2,7 @@
 import { useLocationStore } from '@/stores/location'
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
-import { http } from '@/utils/http'
+import http from '@/utils/http'
 
 const location = useLocationStore()
 const router = useRouter()
