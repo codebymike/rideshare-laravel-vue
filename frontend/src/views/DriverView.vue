@@ -16,7 +16,7 @@ const driverDetails = reactive({
 
 const handleSaveDriver = () => {
     http().post('/api/driver', driverDetails)
-        .then((response) => {
+        .then((_response) => {
             router.push({
                 name: 'standby'
             })
