@@ -1,9 +1,16 @@
 <script setup>
+import Loader from '@/components/Loader.vue'
+import { useTripStore } from '@/store/trip'
+
+const trip = useTripStore()
 
 </script>
 <template>
     <div class="pt-16">
         <h1 class="text-3xl font-semibold mb-4">title</h1>
+        <div v-if="!trip.id" class="mt-8 flex justify-center">
+            <Loader />
+        </div>
         <div>
             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left">
                 <div class="bg-white px-4 py-5 sm:p-6">
