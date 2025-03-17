@@ -36,7 +36,7 @@ class TripStarted implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('driver')
+            new Channel('drivers')
         ];
     }
 }
