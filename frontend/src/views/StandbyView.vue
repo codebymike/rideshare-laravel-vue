@@ -5,7 +5,7 @@ import { onMounted } from 'vue'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 
-const trip = useTripStore()
+// const trip = useTripStore()
 
 onMounted(async () => {
 
@@ -19,6 +19,16 @@ onMounted(async () => {
         disableStats: true,
         enabledTransports: ['ws', 'wss']
     })
+
+    echo.channel('drivers')
+        .listen('TripCreated', (e) => {
+            title.value = 'Ride requested:'
+
+            // trip.$patch(e.trip)
+            console.log('TripCreated', e)
+
+            setTimeout(initMapDirections, 2000)
+        })
 
 })
 
