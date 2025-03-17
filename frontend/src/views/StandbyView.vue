@@ -3,7 +3,7 @@ import Loader from '@/components/Loader.vue'
 // import { useTripStore } from '@/store/trip'
 import { onMounted } from 'vue'
 import Echo from 'laravel-echo'
-import Pusher from 'pusher-js'
+// import Pusher from 'pusher-js'
 
 // const trip = useTripStore()
 
