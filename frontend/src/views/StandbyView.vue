@@ -1,11 +1,12 @@
 <script setup>
 import Loader from '@/components/Loader.vue'
-// import { useTripStore } from '@/store/trip'
+import { useTripStore } from '@/store/trip'
 import { onMounted } from 'vue'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 
-// const trip = useTripStore()
+const trip = useTripStore()
+const title = ref('Waiting for ride request...')
 
 onMounted(async () => {
 
@@ -24,7 +25,7 @@ onMounted(async () => {
         .listen('TripCreated', (e) => {
             title.value = 'Ride requested:'
 
-            // trip.$patch(e.trip)
+            trip.$patch(e.trip)
             console.log('TripCreated', e)
 
             setTimeout(initMapDirections, 2000)
@@ -35,7 +36,7 @@ onMounted(async () => {
 </script>
 <template>
     <div class="pt-16">
-        <h1 class="text-3xl font-semibold mb-4">title</h1>
+        <h1 class="text-3xl font-semibold mb-4">{{ title }}</h1>
         <div v-if="!trip.id" class="mt-8 flex justify-center">
             <Loader />
         </div>
