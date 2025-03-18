@@ -60,6 +60,32 @@ onMounted(async () => {
 
 })
 
+const initMapDirections = () => {
+    gMap.value.$mapPromise.then((mapObject) => {
+
+        let originPoint = new google.maps.LatLng(trip.origin),
+            destinationPoint = new google.maps.LatLng(trip.destination),
+            directionsService = new google.maps.DirectionsService,
+            directionsDisplay = new google.maps.DirectionsRenderer({
+                map: mapObject
+            })
+
+        directionsService.route({
+            origin: originPoint,
+            destination: destinationPoint,
+            avoidTolls: false,
+            avoidHighways: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, (res, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(res)
+            } else {
+                console.error(status)
+            }
+        })
+    })
+}
+
 </script>
 <template>
     <div class="pt-16">
@@ -75,7 +101,7 @@ onMounted(async () => {
                             style="width:100%; height: 256px;"></GMapMap>
                     </div>
                     <div class="mt-2">
-                        <p class="text-xl">Going to <strong>trip.destination_name</strong></p>
+                        <p class="text-xl">Going to <strong>{{ trip.destination_name }}</strong></p>
                     </div>
                 </div>
                 <div class="flex justify-between bg-gray-50 px-4 py-3 text-right sm:px-6">
