@@ -7,6 +7,33 @@ import Pusher from 'pusher-js'
 
 const trip = useTripStore()
 const title = ref('Waiting for ride request...')
+const gMap = ref(null)
+
+const handleDeclineTrip = () => {
+    trip.reset()
+    title.value = 'Waiting for ride request...'
+}
+
+const handleAcceptTrip = () => {
+    http().post(`/api/trip/${trip.id}/accept`, {
+        driver_location: location.current.geometry
+    })
+        .then((response) => {
+            location.$patch({
+                destination: {
+                    name: 'Passenger',
+                    geometry: response.data.origin
+                }
+            })
+
+            router.push({
+                name: 'driving'
+            })
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
 
 onMounted(async () => {
 
