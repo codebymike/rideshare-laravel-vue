@@ -1,13 +1,19 @@
 <script setup>
+import { ref } from 'vue'
 import Loader from '@/components/Loader.vue'
-import { useTripStore } from '@/store/trip'
 import { onMounted } from 'vue'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
+import { useTripStore } from '@/stores/trip'
+import { useLocationStore } from '@/stores/location'
+import http from '@/helpers/http'
+import { useRouter } from 'vue-router'
 
-const trip = useTripStore()
 const title = ref('Waiting for ride request...')
 const gMap = ref(null)
+const trip = useTripStore()
+const location = useLocationStore()
+const router = useRouter()
 
 const handleDeclineTrip = () => {
     trip.reset()
@@ -36,6 +42,7 @@ const handleAcceptTrip = () => {
 }
 
 onMounted(async () => {
+    await location.updateCurrentLocation()
 
     let echo = new Echo({
         broadcaster: 'pusher',
@@ -57,7 +64,6 @@ onMounted(async () => {
 
             setTimeout(initMapDirections, 2000)
         })
-
 })
 
 const initMapDirections = () => {
@@ -85,7 +91,6 @@ const initMapDirections = () => {
         })
     })
 }
-
 </script>
 <template>
     <div class="pt-16">
