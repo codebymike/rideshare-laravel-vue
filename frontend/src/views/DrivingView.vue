@@ -5,6 +5,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const location = useLocationStore()
 
 const gMap = ref(null)
+const intervalRef = ref(null)
 
 const currentIcon = {
     url: 'https://openmoji.org/data/color/svg/1F698.svg',
@@ -20,6 +21,44 @@ const destinationIcon = {
         width: 24,
         height: 24
     }
+}
+
+const handlePassengerPickedUp = () => {
+    http().post(`/api/trip/${trip.id}/start`)
+        .then((response) => {
+            title.value = 'Travelling to destination...'
+            location.$patch({
+                destination: {
+                    name: response.data.destination_name,
+                    geometry: response.data.destination
+                }
+            })
+            trip.$patch(response.data)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+}
+
+const handleCompleteTrip = () => {
+    http().post(`/api/trip/${trip.id}/end`)
+        .then((response) => {
+            title.value = 'Trip completed!'
+
+            trip.$patch(response.data)
+
+            setTimeout(() => {
+                trip.reset()
+                location.reset()
+
+                router.push({
+                    name: 'standby'
+                })
+            }, 3000)
+        })
+        .catch((error) => {
+            console.error(error)
+        })
 }
 
 onMounted(() => {
@@ -83,7 +122,14 @@ const broadcastDriverLocation = () => {
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-
+                    <button v-if="trip.is_started"
+                        @click="handleCompleteTrip"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-600 focus:outline-none">
+                        Complete Trip</button>
+                    <button v-else
+                        @click="handlePassengerPickedUp"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-gray-600 focus:outline-none">
+                        Passenger Picked Up</button>
                 </div>
             </div>
         </div>
