@@ -21,6 +21,22 @@ const destinationIcon = {
     }
 }
 
+onMounted(() => {
+    gMap.value.$mapPromise.then((mapObject) => {
+        updateMapBounds(mapObject)
+    })
+})
+
+const updateMapBounds = (mapObject) => {
+    let originPoint = new google.maps.LatLng(location.current.geometry),
+        destinationPoint = new google.maps.LatLng(location.destination.geometry),
+        latLngBounds = new google.maps.LatLngBounds()
+
+    latLngBounds.extend(originPoint)
+    latLngBounds.extend(destinationPoint)
+
+    mapObject.fitBounds(latLngBounds)
+}
 
 </script>
 <template>
