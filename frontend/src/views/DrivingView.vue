@@ -24,6 +24,12 @@ const destinationIcon = {
 onMounted(() => {
     gMap.value.$mapPromise.then((mapObject) => {
         updateMapBounds(mapObject)
+
+        intervalRef.value = setInterval(async () => {
+            // update the driver's current position and update map bounds
+            await location.updateCurrentLocation()
+            updateMapBounds(mapObject)
+        }, 5000)
     })
 })
 
