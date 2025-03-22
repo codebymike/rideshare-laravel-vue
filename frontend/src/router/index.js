@@ -46,6 +46,11 @@ const router = createRouter({
       name: "driver",
       component: DriverView,
     },
+    {
+      path: "/driving",
+      name: "driving",
+      component: DrivingView,
+    },
   ],
 });
 
