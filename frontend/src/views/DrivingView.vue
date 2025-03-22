@@ -1,4 +1,9 @@
 <script setup>
+import { useLocationStore } from '@/stores/location'
+
+const location = useLocationStore()
+
+const gMap = ref(null)
 
 </script>
 <template>
@@ -8,7 +13,11 @@
             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left">
                 <div class="bg-white px-4 py-5 sm:p-6">
                     <div>
-                        Gmap
+                        <GMapMap :zoom="14" :center="location.current.geometry" ref="gMap"
+                            style="width:100%; height: 256px;">
+                            <GMapMarker :position="location.current.geometry" :icon="currentIcon" />
+                            <GMapMarker :position="location.destination.geometry" :icon="destinationIcon" />
+                        </GMapMap>
                     </div>
                     <div class="mt-2">
                         <p class="text-xl">Going to <strong>pick up a passenger</strong></p>
