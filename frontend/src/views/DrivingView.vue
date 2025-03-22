@@ -28,6 +28,10 @@ onMounted(() => {
         intervalRef.value = setInterval(async () => {
             // update the driver's current position and update map bounds
             await location.updateCurrentLocation()
+
+            // update the driver's position in the database
+            broadcastDriverLocation()
+
             updateMapBounds(mapObject)
         }, 5000)
     })
@@ -42,6 +46,16 @@ const updateMapBounds = (mapObject) => {
     latLngBounds.extend(destinationPoint)
 
     mapObject.fitBounds(latLngBounds)
+}
+
+const broadcastDriverLocation = () => {
+    http().post(`/api/trip/${trip.id}/location`, {
+        driver_location: location.current.geometry
+    })
+        .then((response) => {})
+        .catch((error) => {
+            console.error(error)
+        })
 }
 
 </script>
