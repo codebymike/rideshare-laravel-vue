@@ -1,5 +1,6 @@
 <script setup>
 import { useLocationStore } from '@/stores/location'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const location = useLocationStore()
 
@@ -35,6 +36,11 @@ onMounted(() => {
             updateMapBounds(mapObject)
         }, 5000)
     })
+})
+
+onUnmounted(() => {
+    clearInterval(intervalRef.value)
+    intervalRef.value = null
 })
 
 const updateMapBounds = (mapObject) => {
