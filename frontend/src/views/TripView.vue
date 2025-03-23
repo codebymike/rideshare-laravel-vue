@@ -1,4 +1,9 @@
 <script setup>
+import { useTripStore } from '@/stores/trip'
+import { useLocationStore } from '@/stores/location'
+
+const trip = useTripStore()
+const location = useLocationStore()
 
 </script>
 <template>
