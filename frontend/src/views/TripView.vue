@@ -37,7 +37,12 @@ onMounted(() => {
     })
 
     echo.channel(`passenger_${trip.user_id}`)
+        .listen('TripAccepted', (e) => {
+            trip.$patch(e.trip)
 
+            title.value = "A driver is on the way!"
+            message.value = `${e.trip.driver.user.name} is coming in a ${e.trip.driver.year} ${e.trip.driver.color} ${e.trip.driver.make} ${e.trip.driver.model} with a license plate #${e.trip.driver.license_plate}`
+        })
 })
 
 </script>
