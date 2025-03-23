@@ -5,6 +5,22 @@ import { useLocationStore } from '@/stores/location'
 const trip = useTripStore()
 const location = useLocationStore()
 
+const currentIcon = {
+    url: 'https://openmoji.org/data/color/svg/1F920.svg',
+    scaledSize: {
+        width: 24,
+        height: 24
+    }
+}
+
+const driverIcon = {
+    url: 'https://openmoji.org/data/color/svg/1F698.svg',
+    scaledSize: {
+        width: 32,
+        height: 32
+    }
+}
+
 </script>
 <template>
     <div class="pt-16">
