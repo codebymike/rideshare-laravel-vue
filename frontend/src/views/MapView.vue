@@ -2,9 +2,11 @@
 import { useLocationStore } from '@/stores/location'
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
+import { useTripStore } from '@/stores/trip'
 import http from '@/utils/http'
 
 const location = useLocationStore()
+const trip = useTripStore()
 const router = useRouter()
 
 const gMap = ref(null)
