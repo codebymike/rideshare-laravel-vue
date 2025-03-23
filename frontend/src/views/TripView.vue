@@ -21,6 +21,22 @@ const driverIcon = {
     }
 }
 
+onMounted(() => {
+    let echo = new Echo({
+        broadcaster: 'pusher',
+        key: 'mykey',
+        cluster: 'mt1',
+        wsHost: window.location.hostname,
+        wsPort: 6001,
+        forceTLS: false,
+        disableStats: true,
+        enabledTransports: ['ws', 'wss']
+    })
+
+    echo.channel(`passenger_${trip.user_id}`)
+
+})
+
 </script>
 <template>
     <div class="pt-16">
