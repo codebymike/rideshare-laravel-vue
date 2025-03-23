@@ -1,6 +1,9 @@
 <script setup>
 import { useTripStore } from '@/stores/trip'
 import { useLocationStore } from '@/stores/location'
+import { onMounted, ref } from 'vue'
+import Echo from 'laravel-echo'
+import Pusher from 'pusher-js'
 
 const trip = useTripStore()
 const location = useLocationStore()
