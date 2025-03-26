@@ -1,4 +1,4 @@
-import { ref, computed, reactive } from "vue";
+import { reactive } from "vue";
 import { defineStore } from "pinia";
 
 const getUserLocation = async () => {
@@ -32,5 +32,15 @@ export const useLocationStore = defineStore("location", () => {
     };
   };
 
-  return { destination, current, updateCurrentLocation };
+  const reset = () => {
+    destination.name = "";
+    destination.address = "";
+    destination.geometry.lat = null;
+    destination.geometry.lng = null;
+
+    current.geometry.lat = null;
+    current.geometry.lng = null;
+  };
+
+  return { destination, current, updateCurrentLocation, reset };
 });
