@@ -62,6 +62,21 @@ onMounted(() => {
             title.value = "You're on your way!"
             message.value = `You are headed to ${e.trip.destination_name}`
         })
+        .listen('TripEnded', (e) => {
+            trip.$patch(e.trip)
+
+            title.value = "You've arrived!"
+            message.value = `Hope you enjoyed your ride with ${e.trip.driver.user.name}`
+
+            setTimeout(() => {
+                trip.reset()
+                location.reset()
+                
+                router.push({
+                    name: 'landing'
+                })
+            }, 10000)
+        })
 })
 
 </script>
