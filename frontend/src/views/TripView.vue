@@ -79,6 +79,17 @@ onMounted(() => {
         })
 })
 
+const updateMapBounds = () => {
+    let originPoint = new google.maps.LatLng(location.current.geometry),
+        driverPoint = new google.maps.LatLng(trip.driver_location),
+        latLngBounds = new google.maps.LatLngBounds()
+
+    latLngBounds.extend(originPoint)
+    latLngBounds.extend(driverPoint)
+
+    gMapObject.value.fitBounds(latLngBounds)
+}
+
 </script>
 <template>
     <div class="pt-16">
