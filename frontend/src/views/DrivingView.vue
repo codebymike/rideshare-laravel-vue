@@ -6,6 +6,7 @@ const location = useLocationStore()
 
 const gMap = ref(null)
 const intervalRef = ref(null)
+const title = ref('Driving to passenger...')
 
 const currentIcon = {
     url: 'https://openmoji.org/data/color/svg/1F698.svg',
@@ -106,7 +107,7 @@ const broadcastDriverLocation = () => {
 </script>
 <template>
     <div class="pt-16">
-        <h1 class="text-3xl font-semibold mb-4"> title </h1>
+        <h1 class="text-3xl font-semibold mb-4">{{ title }}</h1>
         <div>
             <div class="overflow-hidden shadow sm:rounded-md max-w-sm mx-auto text-left">
                 <div class="bg-white px-4 py-5 sm:p-6">
