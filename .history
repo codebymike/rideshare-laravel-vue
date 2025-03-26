@@ -5,5 +5,3 @@ php artisan reverb:start --host="0.0.0.0" --port=8080 --hostname="laravel.test"
 
 npm init vue@latest
 npm install tailwindcss @tailwindcss/vite
-
-test
