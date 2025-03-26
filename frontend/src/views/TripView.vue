@@ -51,6 +51,17 @@ onMounted(() => {
 
             setTimeout(updateMapBounds, 1000)
         })
+        .listen('TripStarted', (e) => {
+            trip.$patch(e.trip)
+            location.$patch({
+                current: {
+                    geometry: e.trip.destination
+                }
+            })
+
+            title.value = "You're on your way!"
+            message.value = `You are headed to ${e.trip.destination_name}`
+        })
 })
 
 </script>
