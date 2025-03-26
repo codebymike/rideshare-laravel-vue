@@ -1,11 +1,18 @@
 <script setup>
 import { useLocationStore } from '@/stores/location'
+import { useTripStore } from '@/stores/trip'
+import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
+import http from '@/utils/http'
+import Tada from '@/components/Tada.vue'
 
 const location = useLocationStore()
+const trip = useTripStore()
+const router = useRouter()
 
 const gMap = ref(null)
 const intervalRef = ref(null)
+
 const title = ref('Driving to passenger...')
 
 const currentIcon = {
@@ -22,6 +29,27 @@ const destinationIcon = {
         width: 24,
         height: 24
     }
+}
+
+const updateMapBounds = (mapObject) => {
+    let originPoint = new google.maps.LatLng(location.current.geometry),
+        destinationPoint = new google.maps.LatLng(location.destination.geometry),
+        latLngBounds = new google.maps.LatLngBounds()
+
+    latLngBounds.extend(originPoint)
+    latLngBounds.extend(destinationPoint)
+
+    mapObject.fitBounds(latLngBounds)
+}
+
+const broadcastDriverLocation = () => {
+    http().post(`/api/trip/${trip.id}/location`, {
+        driver_location: location.current.geometry
+    })
+        .then((response) => {})
+        .catch((error) => {
+            console.error(error)
+        })
 }
 
 const handlePassengerPickedUp = () => {
@@ -80,30 +108,9 @@ onMounted(() => {
 
 onUnmounted(() => {
     clearInterval(intervalRef.value)
+
     intervalRef.value = null
 })
-
-const updateMapBounds = (mapObject) => {
-    let originPoint = new google.maps.LatLng(location.current.geometry),
-        destinationPoint = new google.maps.LatLng(location.destination.geometry),
-        latLngBounds = new google.maps.LatLngBounds()
-
-    latLngBounds.extend(originPoint)
-    latLngBounds.extend(destinationPoint)
-
-    mapObject.fitBounds(latLngBounds)
-}
-
-const broadcastDriverLocation = () => {
-    http().post(`/api/trip/${trip.id}/location`, {
-        driver_location: location.current.geometry
-    })
-        .then((response) => {})
-        .catch((error) => {
-            console.error(error)
-        })
-}
-
 </script>
 <template>
     <div class="pt-16">
